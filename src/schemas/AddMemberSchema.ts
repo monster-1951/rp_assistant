@@ -12,6 +12,7 @@ const AgeSchema = z.string().min(2,"Enter a Valid age");
 const dobSchema = z.string().min(1,"Enter Date of Birth");
 
 export const AddMemberSchema = z.object({
+  groupName:z.string(),
   memberFirstName: NameSchema,
   memberLastName: NameSchema,
   memberMobileNumber: MobileNumberSchema,

@@ -21,6 +21,7 @@ export interface Member extends Document {
     | "GENERAL";
   Address: string;
   SpouseName: string;
+  GroupName:string;
   // SpouseOccupation:string,
 }
 
@@ -70,6 +71,11 @@ const MemberSchema: Schema = new Schema<Member>(
       type: String,
       required: [true, "Address is Required"],
     },
+    GroupName: {
+      type: String,
+      required: [true, "Group Name is Required"],
+    },
+    
   },
   { timestamps: true }
 );

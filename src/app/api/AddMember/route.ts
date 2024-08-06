@@ -3,10 +3,11 @@ import MemberModel from "@/models/Member.model";
 
 export async function POST(request: Request) {
   await dbConnect();
-//   console.log("🍻", request);
+  //   console.log("🍻", request);
 
   try {
     const {
+      groupName,
       memberFirstName,
       aadhaarNumber,
       address,
@@ -20,7 +21,9 @@ export async function POST(request: Request) {
       memberQualification,
     } = await request.json();
 
-    console.log( {
+    console.log(
+      {
+        groupName,
         memberFirstName,
         aadhaarNumber,
         address,
@@ -32,32 +35,34 @@ export async function POST(request: Request) {
         memberMobileNumber,
         memberOccupation,
         memberQualification,
-      } ,"🙌");
-    
+      },
+      "🙌"
+    );
 
     const newMember = new MemberModel({
+      GroupName: groupName,
       FirstName: memberFirstName,
       LastName: memberLastName,
       MobileNumber: memberMobileNumber,
       Qualification: memberQualification,
-      Occupation:memberOccupation,
-      SpouseName:memberHusbandFirstName,
-      AadharNumber:aadhaarNumber,
-      Age:memberAge,
-      DOB:memberDob,
-      Caste:caste,
-      Address:address,
+      Occupation: memberOccupation,
+      SpouseName: memberHusbandFirstName,
+      AadharNumber: aadhaarNumber,
+      Age: memberAge,
+      DOB: memberDob,
+      Caste: caste,
+      Address: address,
     });
 
     await newMember.save();
 
-    console.log(newMember,"👍");
-    
+    console.log(newMember, "👍");
 
     return Response.json(
       {
         success: true,
         message: "Posted",
+        newMember,
       },
       { status: 201 }
     );

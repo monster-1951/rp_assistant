@@ -1,0 +1,37 @@
+import dbConnect from "@/lib/dbConnect";
+import SHGModel from "@/models/SHG.model";
+import { redirect } from "next/navigation";
+
+export async function POST(request: Request) {
+  //   console.log(request.json());
+
+  await dbConnect();
+  try {
+    const { Name, NoOfMembers, RP } = await request.json();
+
+    console.log({ Name, NoOfMembers, RP }, "🍻");
+
+    const newGroup = new SHGModel({
+        Name:Name,NoOfMembers:NoOfMembers,RP:RP
+    });
+
+    await newGroup.save()
+    return Response.json(
+      {
+        success: true,
+        message: "New SHG",
+        newGroup
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.log("Error in creating new group", error);
+    return Response.json(
+      {
+        success: false,
+        message: "Error in creating new SHG",
+      },
+      { status: 500 }
+    );
+  }
+}

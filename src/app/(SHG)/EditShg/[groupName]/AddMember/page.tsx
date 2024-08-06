@@ -20,11 +20,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Selectt from "@/components/custom/Selectt";
-import axios, { AxiosError } from "axios"
+import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Textarea } from "@/components/ui/textarea";
 
-const AddMember = () => {
+const AddMember = ({ params }: { params: { groupName: string } }) => {
   const form = useForm<z.infer<typeof AddMemberSchema>>({
     resolver: zodResolver(AddMemberSchema),
     defaultValues: {
@@ -39,6 +39,7 @@ const AddMember = () => {
       caste: "",
       address: "",
       memberHusbandFirstName: "",
+      groupName: params.groupName,
     },
   });
   const onSubmit = async (values: z.infer<typeof AddMemberSchema>) => {
@@ -46,7 +47,7 @@ const AddMember = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
     try {
-      const response = await axios.post("/api/AddMember",values)
+      const response = await axios.post("/api/AddMember", values);
       console.log("👍", values, "This is the data from onSubmit function");
     } catch (error) {
       console.error("Error while create adding the member", error);
@@ -59,7 +60,11 @@ const AddMember = () => {
   };
   return (
     <div className="w-fit mx-auto border border-black p-5 my-10">
+        <div className="p-3 text-center font-bold rounded-xl underline underline-offset-2">
+          {params.groupName}
+        </div>
       <Form {...form}>
+        {/* GroupName */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* MemberFirstName */}
           <FormField
@@ -228,9 +233,9 @@ const AddMember = () => {
               <FormItem>
                 <FormLabel className="px-2">Address</FormLabel>
                 <FormControl>
-                 <div className="h-32">
-                 <Textarea placeholder="" {...field} className="h-32"/>
-                 </div>
+                  <div className="h-32">
+                    <Textarea placeholder="" {...field} className="h-32" />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
