@@ -7,9 +7,9 @@ const MobileNumberSchema = z.string().length(10,"Mobile Number should have 10 di
   message: "Invalid mobile number",
 }
 )
-const AadharSchema = z.string().length(12);
-const AgeSchema = z.string()
-const dobSchema = z.string();
+const AadharSchema = z.string().length(12,"Enter a valid Aadhar Number");
+const AgeSchema = z.string().min(2,"Enter a Valid age");
+const dobSchema = z.string().min(1,"Enter Date of Birth");
 
 export const AddMemberSchema = z.object({
   memberFirstName: NameSchema,
@@ -20,13 +20,13 @@ export const AddMemberSchema = z.object({
   aadhaarNumber: AadharSchema,
   memberAge: AgeSchema,
   memberDob: dobSchema,
-  caste: z.string(),
-  address: z.string(),
+  caste: z.string().min(1,"Enter the caste"),
+  address: z.string().min(1,"Enter the address"),
   memberHusbandFirstName: NameSchema,
+  memberHusbandOccupation: z.string().optional(),
   memberHusbandLastName: NameSchema.optional(),
   memberHusbandMobileNumber: MobileNumberSchema.optional(),
   memberHusbandQualification: z.string().optional(),
-  memberHusbandOccupation: z.string().optional(),
   memberHusbandaadhaarNumber: AadharSchema.optional(),
   memberHusbandAge: AgeSchema.optional(),
   memberHusbandDob: dobSchema.optional(),

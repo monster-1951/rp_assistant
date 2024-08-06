@@ -7,29 +7,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const castes = [
-  "SC",
-  "ST",
-  "BC-A",
-  "BC-B",
-  "BC-C",
-  "BC-D",
-  "BC-E",
-  "OBC",
-  "EBC",
-  "GENERAL",
-];
 
-interface SelectCasteProps 
+
+interface SelecttProps 
   {
     // name:string;
     onChange: (value:string)=>void;
     value:string | undefined;
+    options:string[],
+    placeHolder:string,
     // ref:string
   }
 
 
-const SelectCaste = ({value,onChange}:SelectCasteProps) => {
+const Selectt = ({value,onChange,options,placeHolder}:SelecttProps) => {
 //  const valRef = useRef<HTMLSpanElement>(ref)
   useEffect(() => {
   //  console.log(ref.current) 
@@ -38,10 +29,10 @@ const SelectCaste = ({value,onChange}:SelectCasteProps) => {
   return (
     <Select onValueChange={onChange} value={value}>
       <SelectTrigger className="w-[180px]" >
-        <SelectValue placeholder="Caste" />
+        <SelectValue placeholder={placeHolder} />
       </SelectTrigger>
       <SelectContent>
-        {castes.map((caste:string,i) => {
+        {options.map((caste:string,i) => {
           return(
            
              <SelectItem value={caste} key={i}>
@@ -56,4 +47,4 @@ const SelectCaste = ({value,onChange}:SelectCasteProps) => {
   );
 };
 
-export default SelectCaste;
+export default Selectt;
