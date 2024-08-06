@@ -45,17 +45,17 @@ const AddMember = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    // try {
-    //   const response = await axios.post("/api/AddMember",values)
-    //   console.log("👍", values, "This is the data from onSubmit function");
-    // } catch (error) {
-    //   console.error("Error while create adding the member", error);
-    //   const axiosError = error as AxiosError<ApiResponse>;
+    try {
+      const response = await axios.post("/api/AddMember",values)
+      console.log("👍", values, "This is the data from onSubmit function");
+    } catch (error) {
+      console.error("Error while create adding the member", error);
+      const axiosError = error as AxiosError<ApiResponse>;
 
-    //   // Default error message
-    //   let errorMessage = axiosError.response?.data.message;
-    //   ("There was a problem with adding a member. Please try again.");
-    // }
+      // Default error message
+      let errorMessage = axiosError.response?.data.message;
+      ("There was a problem with adding a member. Please try again.");
+    }
   };
   return (
     <div className="w-fit mx-auto border border-black p-5 my-10">
