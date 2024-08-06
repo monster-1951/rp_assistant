@@ -44,7 +44,7 @@ const CreateGroup = () => {
   return (
   <div className="w-fit mx-auto border border-black p-5 my-10">
   <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" >
         {/* Group Name */}
         <FormField
           control={form.control}
@@ -54,6 +54,20 @@ const CreateGroup = () => {
               <FormLabel>Name of the Group</FormLabel>
               <FormControl>
                 <Input placeholder="Enter Group Name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         {/* SLF Name */}
+         <FormField
+          control={form.control}
+          name="NameOfSLF"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name of SLF</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter SLF Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,6 +101,7 @@ const CreateGroup = () => {
             </FormItem>
           )}
         />
+       
         <Button type="submit">Submit</Button>
       </form>
     </Form>

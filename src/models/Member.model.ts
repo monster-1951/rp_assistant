@@ -22,7 +22,12 @@ export interface Member extends Document {
   Address: string;
   SpouseName: string;
   GroupName:string;
-  // SpouseOccupation:string,
+  SpouseOccupation:string,
+  SpouseMobileNumber:string,
+  SpouseQualification:string,
+  SpouseAadharNumber:string,
+  SpouseAge:String,
+  SpouseDOB:string,
 }
 
 const MemberSchema: Schema = new Schema<Member>(
@@ -35,7 +40,12 @@ const MemberSchema: Schema = new Schema<Member>(
       type: String,
       required: [true, "Last Name is Required"],
     },
+
     MobileNumber: {
+      type: String,
+      required: [true, "Mobile is Required"],
+    },
+    SpouseMobileNumber:{
       type: String,
       required: [true, "Mobile is Required"],
     },
@@ -43,7 +53,15 @@ const MemberSchema: Schema = new Schema<Member>(
       type: String,
       required: [true, "Qualification is Required"],
     },
+    SpouseQualification: {
+      type: String,
+      required: [true, "Qualification is Required"],
+    },
     Occupation: {
+      type: String,
+      required: [true, "Qualification is Required"],
+    },
+    SpouseOccupation: {
       type: String,
       required: [true, "Qualification is Required"],
     },
@@ -55,11 +73,23 @@ const MemberSchema: Schema = new Schema<Member>(
       type: String,
       required: [true, "Aadhar is Required"],
     },
+    SpouseAadharNumber: {
+      type: String,
+      required: [true, "Aadhar is Required"],
+    },
     Age: {
       type: String,
       required: [true, "Age is Required"],
     },
+    SpouseAge: {
+      type: String,
+      required: [true, "Age is Required"],
+    },
     DOB: {
+      type: String,
+      required: [true, "Date of Birth is Required"],
+    },
+    SpouseDOB: {
       type: String,
       required: [true, "Date of Birth is Required"],
     },

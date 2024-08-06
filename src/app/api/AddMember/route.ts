@@ -19,6 +19,21 @@ export async function POST(request: Request) {
       memberMobileNumber,
       memberOccupation,
       memberQualification,
+      memberHusbandMobileNumber,
+      memberHusbandOccupation,
+      memberHusbandQualification,
+
+      memberHusbandaadhaarNumber,
+
+      memberHusbandAge,
+
+      memberHusbandDob,
+
+      memberAccount,
+
+      memberBankIFSCcode,
+
+      noOfFamilyMembers,
     } = await request.json();
 
     console.log(
@@ -35,6 +50,19 @@ export async function POST(request: Request) {
         memberMobileNumber,
         memberOccupation,
         memberQualification,
+        memberHusbandMobileNumber,
+        memberHusbandOccupation,
+        memberHusbandQualification,
+        memberHusbandaadhaarNumber,
+        memberHusbandAge,
+
+        memberHusbandDob,
+
+        memberAccount,
+
+        memberBankIFSCcode,
+
+        noOfFamilyMembers,
       },
       "🙌"
     );
@@ -44,12 +72,18 @@ export async function POST(request: Request) {
       FirstName: memberFirstName,
       LastName: memberLastName,
       MobileNumber: memberMobileNumber,
+      SpouseMobileNumber:memberHusbandMobileNumber,
       Qualification: memberQualification,
+      SpouseQualification:memberHusbandQualification,
       Occupation: memberOccupation,
+      SpouseOccupation:memberHusbandOccupation,
       SpouseName: memberHusbandFirstName,
       AadharNumber: aadhaarNumber,
+      SpouseAadharNumber:memberHusbandaadhaarNumber,
       Age: memberAge,
+      SpouseAge:memberHusbandAge,
       DOB: memberDob,
+      SpouseDOB:memberHusbandDob,
       Caste: caste,
       Address: address,
     });

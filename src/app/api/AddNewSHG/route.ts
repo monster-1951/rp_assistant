@@ -7,12 +7,12 @@ export async function POST(request: Request) {
 
   await dbConnect();
   try {
-    const { Name, NoOfMembers, RP } = await request.json();
+    const { Name, NoOfMembers, RP ,NameOfSLF} = await request.json();
 
-    console.log({ Name, NoOfMembers, RP }, "🍻");
+    console.log({ Name, NoOfMembers, RP,NameOfSLF }, "🍻");
 
     const newGroup = new SHGModel({
-        Name:Name,NoOfMembers:NoOfMembers,RP:RP
+        Name,NoOfMembers,RP,NameOfSLF
     });
 
     await newGroup.save()

@@ -66,7 +66,11 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       <Form {...form}>
         {/* GroupName */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
+
+
           {/* MemberFirstName */}
+
           <FormField
             control={form.control}
             name="memberFirstName"
@@ -81,7 +85,12 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
+
+
           {/* MemberLastName */}
+
           <FormField
             control={form.control}
             name="memberLastName"
@@ -96,7 +105,32 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
+           {/* SpouseName */}
+
+
+
+           <FormField
+            control={form.control}
+            name="memberHusbandFirstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter Spouse Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
+
           {/* MobileNumber */}
+
+
+
           <FormField
             control={form.control}
             name="memberMobileNumber"
@@ -111,7 +145,28 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
+
+           {/* Spouse MobileNumber */}
+           <FormField
+            control={form.control}
+            name="memberHusbandMobileNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Mobile Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter Spouse Name" {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
           {/* Qualification */}
+
+
           <FormField
             control={form.control}
             name="memberQualification"
@@ -126,7 +181,32 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
+
+          {/*Spouse Qualification */}
+
+
+
+          <FormField
+            control={form.control}
+            name="memberHusbandQualification"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Qualification</FormLabel>
+                <FormControl>
+                  <Input placeholder="Qualification" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
           {/* Occupation */}
+
+
           <FormField
             control={form.control}
             name="memberOccupation"
@@ -145,8 +225,12 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
           {/* Spouse Occupation */}
-          {/* <FormField
+
+
+          <FormField
             control={form.control}
             name="memberHusbandOccupation"
             render={({ field }) => (
@@ -163,7 +247,9 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
+
+
           {/* Aadhar number */}
           <FormField
             control={form.control}
@@ -178,13 +264,53 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
+
+
+          {/*Spouse Aadhar number */}
+
+
+          <FormField
+            control={form.control}
+            name="memberHusbandaadhaarNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Aadhar Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Aadhar Number" type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
           {/* Age */}
+
+
           <FormField
             control={form.control}
             name="memberAge"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="px-2">Age</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter the Age" type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
+          {/* Spouse age */}
+
+          
+          <FormField
+            control={form.control}
+            name="memberHusbandAge"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Age</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter the Age" type="number" {...field} />
                 </FormControl>
@@ -199,6 +325,20 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="px-2">Date of Birth</FormLabel>
+                <FormControl>
+                  <Input placeholder="Date of Birth" type="date" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/*Spouse  Dob */}
+          <FormField
+            control={form.control}
+            name="memberHusbandDob"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="px-2">Spouse Date of Birth</FormLabel>
                 <FormControl>
                   <Input placeholder="Date of Birth" type="date" {...field} />
                 </FormControl>
@@ -241,20 +381,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
-          {/* SpouseName */}
-          <FormField
-            control={form.control}
-            name="memberHusbandFirstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="px-2">Spouse Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter Spouse Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+         
           <Button
             type="submit"
             onClick={() => {
