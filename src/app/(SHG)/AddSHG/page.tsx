@@ -17,7 +17,9 @@ import {
 import { Input } from "@/components/ui/input";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+import {  useRouter } from "next/navigation";
 const CreateGroup = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof CreateSHGSchema>>({
     resolver: zodResolver(CreateSHGSchema),
     defaultValues: {
@@ -30,6 +32,7 @@ const CreateGroup = () => {
     try {
       const response = await axios.post("/api/AddNewSHG",values)
       console.log("👍", values, "This is the data from onSubmit function");
+
     } catch (error) {
       console.error("Error while create the group", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -38,7 +41,7 @@ const CreateGroup = () => {
       let errorMessage = axiosError.response?.data.message;
       ("There was a problem with creating a group. Please try again.");
     }
-
+    router.replace("/")
     console.log(values);
   }
   return (
