@@ -1,17 +1,10 @@
-'use server'
-import dbConnect from "@/lib/dbConnect";
+import axios from "axios";
+import dbConnect from "./dbConnect";
+import { Group } from "@/app/api/(SHGs)/FetchSHGs/route";
 import SHGModel from "@/models/SHG.model";
-import { ApiResponse } from "@/types/ApiResponse";
-import axios, { AxiosError } from "axios";
 
-
-const fetchData = async () => {
-    try {
-      const response = await axios.get("/api/FetchSHGs");
-      console.log(response.data.SHGList);
-      
-    } catch (error) {
-      console.log(Error, "🥲");
-    }
-  };
-
+export const fetchData = async ()=> {
+ await dbConnect();
+ const SHGList: Group[] = await SHGModel.find({});
+ return SHGList;
+};

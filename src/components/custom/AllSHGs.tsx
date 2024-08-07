@@ -1,5 +1,3 @@
-"use client";
-import { Group } from "@/app/api/(SHGs)/FetchSHGs/route";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,29 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { fetchData } from "@/lib/fetchSHGs";
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-const AllSHGs = () => {
-  const [SHGList, setSHGList] = useState<Group[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/FetchSHGs",{
-            headers:{
-                'Cache-Control':'no-store'
-            }
-        });
-        setSHGList(response.data.SHGList);
-        console.log(response.data.SHGList, "🍻");
-      } catch (error) {
-        console.log(Error, "🥲");
-      }
-    };
-    fetchData();
-  }, []);
+const AllSHGs = async () => {
+  
+ const SHGList = await fetchData();
 
+ console.log("❤️")
+  
+
+  // fetch()
   return (
     <div>
       {SHGList.map((group) => {
