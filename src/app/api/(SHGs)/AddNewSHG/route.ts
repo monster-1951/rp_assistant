@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import SHGModel from "@/models/SHG.model";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function POST(request: Request) {
@@ -14,8 +15,8 @@ export async function POST(request: Request) {
     const newGroup = new SHGModel({
         Name,NoOfMembers,RP,NameOfSLF
     });
-
     await newGroup.save()
+    revalidatePath("/api/FetchSHGs")
     return Response.json(
       {
         success: true,

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Group } from "@/app/api/(SHGs)/FetchSHGs/route";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,54 +13,87 @@ import { fetchData } from "@/lib/fetchSHGs";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { findMemberName } from "@/lib/findMemberName";
 
 // import useSWR from 'swr';
 
-const AllSHGs =  () => {
- const [SHGList, setSHGList] = useState<Group[]>([])
+const AllSHGs = () => {
+  const [SHGList, setSHGList] = useState<Group[]>([]);
   const fetch = async () => {
-    const res = await fetchData() || []
-    setSHGList(res)
-    console.log(SHGList)
-  }
-
+    const res = (await fetchData()) || [];
+    setSHGList(res);
+    console.log(SHGList);
+  };
 
   useEffect(() => {
-    fetch()
-  },[])
+    fetch();
+  }, []);
 
+  // const membersnames = SHGList.map((group,i) => {
+  //   return (
+  //     group.Members?.map(async(id) => {
+  //       let name
+  //       return(
+  //         name = await findMemberName(id)
+  //       )
+  //     }
+  //     )
+  //   )
+  // }
+  // )
 
+  // console.log(membersnames)
+  // findMemberName("66b37f9078401771b5da907f")
+  interface member {
+    _id:string,
+    name:string,
+  }
   return (
-    <div>
+    <div className="w-full ">
       {SHGList.map((group) => {
         return (
-          <>
-            <Card key={group._id}>
+          <div className="grid grid-flow-col md:grid-cols-2 space-y-10">
+            <Card key={group._id} className="w-72 mx-auto h-72 shadow-2xl my-8">
               <>
                 <CardHeader>
-                  <CardTitle>{group.Name}</CardTitle>
-                  <CardDescription>
-                    {group.Name} was created by {group.RP} .This group has{" "}
-                    {group.Members?.length} members
-                  </CardDescription>
+                  <CardTitle className="font-bold text-center">{group.Name}</CardTitle>
                 </CardHeader>
               </>
               <CardContent>
-                <p>Members in This group</p>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <p className="font-semibold p-3 rounded-md">See Members in This group</p>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Members in This group</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {group.Members?.map((member) => {
+
+                      return (<DropdownMenuItem>{member.name}</DropdownMenuItem>);
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </CardContent>
-              <CardFooter>
-                <p>Date of Creation</p>
-                <Link href={`/EditShg/${group._id}/AddMember`}>
+              <CardFooter className="w-full">
+                <Link href={`/EditShg/${group.Name}/AddMember`} className="w-fit mx-auto">
                   <Button>Add Members </Button>
                 </Link>
               </CardFooter>
             </Card>
-          </>
+          </div>
         );
       })}
 
-      <Link href={`/AddSHG`}>
-        <Button>Add New SHG</Button>
+      <Link href={`/AddSHG`} className="w-full flex ">
+        <Button className="w-fit mx-auto">Add New SHG</Button>
       </Link>
     </div>
   );

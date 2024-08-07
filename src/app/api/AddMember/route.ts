@@ -1,5 +1,8 @@
+'use server'
 import dbConnect from "@/lib/dbConnect";
 import MemberModel from "@/models/Member.model";
+import SHGModel from "@/models/SHG.model";
+import { redirect } from "next/navigation";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -17,22 +20,17 @@ export async function POST(request: Request) {
       memberHusbandFirstName,
       memberLastName,
       memberMobileNumber,
+      spouseAlive,
       memberOccupation,
       memberQualification,
       memberHusbandMobileNumber,
       memberHusbandOccupation,
       memberHusbandQualification,
-
       memberHusbandaadhaarNumber,
-
       memberHusbandAge,
-
       memberHusbandDob,
-
       memberAccount,
-
       memberBankIFSCcode,
-
       noOfFamilyMembers,
     } = await request.json();
 
@@ -43,6 +41,7 @@ export async function POST(request: Request) {
         aadhaarNumber,
         address,
         caste,
+        spouseAlive,
         memberAge,
         memberDob,
         memberHusbandFirstName,
@@ -55,35 +54,32 @@ export async function POST(request: Request) {
         memberHusbandQualification,
         memberHusbandaadhaarNumber,
         memberHusbandAge,
-
         memberHusbandDob,
-
         memberAccount,
-
         memberBankIFSCcode,
-
         noOfFamilyMembers,
       },
       "🙌"
     );
 
     const newMember = new MemberModel({
+      spouseAlive:spouseAlive,
       GroupName: groupName,
       FirstName: memberFirstName,
       LastName: memberLastName,
       MobileNumber: memberMobileNumber,
-      SpouseMobileNumber:memberHusbandMobileNumber,
+      SpouseMobileNumber:spouseAlive ? memberHusbandMobileNumber : "NA",
       Qualification: memberQualification,
-      SpouseQualification:memberHusbandQualification,
+      SpouseQualification:spouseAlive ?memberHusbandQualification : "NA",
       Occupation: memberOccupation,
-      SpouseOccupation:memberHusbandOccupation,
-      SpouseName: memberHusbandFirstName,
+      SpouseOccupation:spouseAlive ?memberHusbandOccupation : "NA",
+      SpouseName:spouseAlive ? memberHusbandFirstName : "NA",
       AadharNumber: aadhaarNumber,
-      SpouseAadharNumber:memberHusbandaadhaarNumber,
+      SpouseAadharNumber:spouseAlive ?memberHusbandaadhaarNumber : "NA",
       Age: memberAge,
-      SpouseAge:memberHusbandAge,
+      SpouseAge:spouseAlive ?memberHusbandAge : "NA",
       DOB: memberDob,
-      SpouseDOB:memberHusbandDob,
+      SpouseDOB:spouseAlive ?memberHusbandDob :"NA",
       Caste: caste,
       Address: address,
     });
@@ -92,6 +88,13 @@ export async function POST(request: Request) {
 
     console.log(newMember, "👍");
 
+    const group =await SHGModel.updateOne(
+      {Name:groupName},
+      {$push:{Members:{_id:newMember._id,name:newMember.FirstName}}}
+    )
+    console.log(group);
+    
+    // redirect('/')
     return Response.json(
       {
         success: true,
@@ -110,4 +113,6 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+
+ 
 }

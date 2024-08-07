@@ -31,3 +31,5 @@ export const femaleOccupations = [
     "Tuitions",
     "Any Other"
 ];
+
+export const SpouseAlive = ["Alive","Dead"]

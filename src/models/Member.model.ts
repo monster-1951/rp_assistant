@@ -20,6 +20,7 @@ export interface Member extends Document {
     | "EBC"
     | "GENERAL";
   Address: string;
+  spouseAlive:boolean
   SpouseName: string;
   GroupName:string;
   SpouseOccupation:string,
@@ -44,6 +45,10 @@ const MemberSchema: Schema = new Schema<Member>(
     MobileNumber: {
       type: String,
       required: [true, "Mobile is Required"],
+    },
+    spouseAlive:{
+      type:Boolean,
+      required:[true,"Is Spouse alive or not?"]
     },
     SpouseMobileNumber:{
       type: String,

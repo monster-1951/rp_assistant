@@ -1,12 +1,11 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-
 export interface SHG extends Document {
   Name: string;
   NoOfMembers: string;
   RP: string;
-  Members: string[];
-  NameOfSLF:string;
+  Members: object[];
+  NameOfSLF: string;
 }
 
 const SHGSchema = new Schema<SHG>(
@@ -25,14 +24,14 @@ const SHGSchema = new Schema<SHG>(
     },
     Members: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Member",
+        _id: { type: Schema.Types.ObjectId, ref: "Member" },
+        name:String
       },
     ],
-    NameOfSLF:{
-      type:String,
+    NameOfSLF: {
+      type: String,
       required: [true, "Name the SLF"],
-    }
+    },
   },
   {
     timestamps: true,

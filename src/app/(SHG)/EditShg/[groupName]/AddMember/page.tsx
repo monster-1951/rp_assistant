@@ -7,6 +7,7 @@ import {
   castes,
   femaleOccupations,
   maleOccupations,
+  SpouseAlive,
 } from "@/constants/constants";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,8 +24,19 @@ import Selectt from "@/components/custom/Selectt";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Textarea } from "@/components/ui/textarea";
+import { useMemo, useRef, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
 
 const AddMember = ({ params }: { params: { groupName: string } }) => {
+  const { toast } = useToast();
+  const [alive, setalive] = useState(true);
+  let toggle = 1;
+  const toggleval = useMemo(() => toggle++, [toggle]);
+
+  const aliveRef = useRef<HTMLInputElement>(null);
+
   const form = useForm<z.infer<typeof AddMemberSchema>>({
     resolver: zodResolver(AddMemberSchema),
     defaultValues: {
@@ -39,16 +51,29 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       caste: "",
       address: "",
       memberHusbandFirstName: "",
+      spouseAlive: aliveRef.current?.value ? true : false,
       groupName: params.groupName,
+      // memberHusbandaadhaarNumber:"",
+      // memberHusbandAge:"",
+      // memberHusbandDob:"",
+      // memberHusbandLastName:"",
+      // memberHusbandMobileNumber:"",
+      // memberHusbandOccupation:"",
+      // memberHusbandQualification:"",
     },
   });
+
   const onSubmit = async (values: z.infer<typeof AddMemberSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
     try {
       const response = await axios.post("/api/AddMember", values);
       console.log("👍", values, "This is the data from onSubmit function");
+
+      toast({
+        title: "Member added 👍",
+        description: "You can go back to home",
+        action: <ToastAction altText="Home">Home</ToastAction>,
+      });
     } catch (error) {
       console.error("Error while create adding the member", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -56,19 +81,25 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       // Default error message
       let errorMessage = axiosError.response?.data.message;
       ("There was a problem with adding a member. Please try again.");
+
+      toast({
+        variant: "destructive",
+        title: "Member not added 👎",
+        description: "You can go back to home",
+        action: <ToastAction altText="Home">Home</ToastAction>,
+      });
+    } finally {
     }
   };
+
   return (
     <div className="w-fit mx-auto border border-black p-5 my-10">
-        <div className="p-3 text-center font-bold rounded-xl underline underline-offset-2">
-          {params.groupName}
-        </div>
+      <div className="p-3 text-center font-bold rounded-xl underline underline-offset-2">
+        {decodeURIComponent(params.groupName)}
+      </div>
       <Form {...form}>
         {/* GroupName */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
-
-
           {/* MemberFirstName */}
 
           <FormField
@@ -85,9 +116,6 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
-
-
-
 
           {/* MemberLastName */}
 
@@ -106,12 +134,31 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
+          {/* Is Spouse alive */}
+          <FormField
+            control={form.control}
+            name="spouseAlive"
+            render={({ field }) => (
+              <FormItem className="flex justify-between py-3">
+                <FormControl className="flex ">
+                  <>
+                    <FormLabel className="px-2 my-auto">
+                      Spouse Alive?
+                    </FormLabel>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-           {/* SpouseName */}
+          {/* SpouseName */}
 
-
-
-           <FormField
+          <FormField
             control={form.control}
             name="memberHusbandFirstName"
             render={({ field }) => (
@@ -125,11 +172,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
-
           {/* MobileNumber */}
-
-
 
           <FormField
             control={form.control}
@@ -146,26 +189,27 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
-
-           {/* Spouse MobileNumber */}
-           <FormField
+          {/* Spouse MobileNumber */}
+          <FormField
             control={form.control}
             name="memberHusbandMobileNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="px-2">Spouse Mobile Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Spouse Name" {...field} type="number" />
+                  <Input
+                    placeholder="Enter Spouse Name"
+                    {...field}
+                    type="number"
+                    disabled={alive ? false : true}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-
           {/* Qualification */}
-
 
           <FormField
             control={form.control}
@@ -182,11 +226,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
-
           {/*Spouse Qualification */}
-
-
 
           <FormField
             control={form.control}
@@ -195,7 +235,11 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               <FormItem>
                 <FormLabel className="px-2">Spouse Qualification</FormLabel>
                 <FormControl>
-                  <Input placeholder="Qualification" {...field} />
+                  <Input
+                    placeholder="Qualification"
+                    {...field}
+                    disabled={alive ? false : true}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -203,9 +247,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
           {/* Occupation */}
-
 
           <FormField
             control={form.control}
@@ -219,6 +261,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
                     onChange={field.onChange}
                     options={femaleOccupations}
                     placeHolder="Select"
+                    disabled={false}
                   />
                 </FormControl>
                 <FormMessage />
@@ -226,9 +269,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
           {/* Spouse Occupation */}
-
 
           <FormField
             control={form.control}
@@ -242,13 +283,13 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
                     onChange={field.onChange}
                     options={maleOccupations}
                     placeHolder="Select"
+                    disabled={alive ? false : true}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
 
           {/* Aadhar number */}
           <FormField
@@ -265,9 +306,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
           {/*Spouse Aadhar number */}
-
 
           <FormField
             control={form.control}
@@ -276,16 +315,19 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               <FormItem>
                 <FormLabel className="px-2">Spouse Aadhar Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="Aadhar Number" type="number" {...field} />
+                  <Input
+                    placeholder="Aadhar Number"
+                    type="number"
+                    {...field}
+                    disabled={alive ? false : true}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-
           {/* Age */}
-
 
           <FormField
             control={form.control}
@@ -301,10 +343,8 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
             )}
           />
 
-
           {/* Spouse age */}
 
-          
           <FormField
             control={form.control}
             name="memberHusbandAge"
@@ -312,7 +352,12 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               <FormItem>
                 <FormLabel className="px-2">Spouse Age</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter the Age" type="number" {...field} />
+                  <Input
+                    placeholder="Enter the Age"
+                    type="number"
+                    {...field}
+                    disabled={alive ? false : true}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -340,7 +385,12 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               <FormItem>
                 <FormLabel className="px-2">Spouse Date of Birth</FormLabel>
                 <FormControl>
-                  <Input placeholder="Date of Birth" type="date" {...field} />
+                  <Input
+                    placeholder="Date of Birth"
+                    type="date"
+                    {...field}
+                    disabled={alive ? false : true}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -359,6 +409,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
                     onChange={field.onChange}
                     options={castes}
                     placeHolder="Select"
+                    disabled={false}
                   />
                 </FormControl>
                 <FormMessage />
@@ -381,7 +432,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
               </FormItem>
             )}
           />
-         
+
           <Button
             type="submit"
             onClick={() => {

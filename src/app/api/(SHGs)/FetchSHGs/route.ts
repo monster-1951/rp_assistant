@@ -13,13 +13,13 @@ export interface Group {
 }
 
 export async function GET(request:NextRequest) {
-  const path = request.nextUrl.searchParams.get('path')
   await dbConnect();
+  // const path = request.nextUrl.searchParams.get('path')
 
-  if (path) {
-    revalidatePath(path)
-    return Response.json({ revalidated: true, now: Date.now() })
-  }
+  // if (path) {
+  //   revalidatePath(path)
+  //   return Response.json({ revalidated: true, now: Date.now() })
+  // }
   const SHGList: Group[] = await SHGModel.find({});
 //   console.log(SHGList);
 

@@ -16,18 +16,19 @@ interface SelecttProps
     value:string | undefined;
     options:string[],
     placeHolder:string,
+    disabled:boolean
     // ref:string
   }
 
 
-const Selectt = ({value,onChange,options,placeHolder}:SelecttProps) => {
+const Selectt = ({value,onChange,options,placeHolder,disabled}:SelecttProps) => {
 //  const valRef = useRef<HTMLSpanElement>(ref)
   useEffect(() => {
   //  console.log(ref.current) 
   }
   )
   return (
-    <Select onValueChange={onChange} value={value}>
+    <Select onValueChange={onChange} value={value} disabled={disabled}>
       <SelectTrigger className="w-[180px]" >
         <SelectValue placeholder={placeHolder} />
       </SelectTrigger>
