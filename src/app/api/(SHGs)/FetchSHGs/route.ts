@@ -3,11 +3,18 @@ import SHGModel from "@/models/SHG.model";
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
+export interface member {
+  _id: string;
+  name: string;
+}
+
+
+
 export interface Group {
   _id: string;
   Name: string;
   RP: string;
-  Members?: string[];
+  Members?: member[];
   createdAt: string;
   updatedAt: string;
 }
