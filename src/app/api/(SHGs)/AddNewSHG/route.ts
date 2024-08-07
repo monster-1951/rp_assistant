@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         Name,NoOfMembers,RP,NameOfSLF
     });
     await newGroup.save()
-    revalidatePath("/api/FetchSHGs")
+    revalidatePath("/")
     return Response.json(
       {
         success: true,

@@ -1,6 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
 import SHGModel from "@/models/SHG.model";
-import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 export interface member {
