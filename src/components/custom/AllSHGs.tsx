@@ -43,8 +43,8 @@ const AllSHGs = () => {
     <div className="w-full ">
       {SHGList.map((group) => {
         return (
-          <div className="grid grid-flow-col md:grid-cols-2 space-y-10">
-            <Card key={group._id} className="w-72 mx-auto h-72 shadow-2xl my-8">
+          <div key={group._id} className="grid grid-flow-col md:grid-cols-2 space-y-10">
+            <Card  className="w-72 mx-auto h-72 shadow-2xl my-8">
               <>
                 <CardHeader>
                   <CardTitle className="font-bold text-center">
