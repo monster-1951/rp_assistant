@@ -28,6 +28,7 @@ import { useMemo, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { revalidatePath } from "next/cache";
 
 const AddMember = ({ params }: { params: { groupName: string } }) => {
   const { toast } = useToast();
@@ -74,6 +75,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
         description: "You can go back to home",
         action: <ToastAction altText="Home">Home</ToastAction>,
       });
+      // revalidatePath("/")
     } catch (error) {
       console.error("Error while create adding the member", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -88,7 +90,9 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
         description: "You can go back to home",
         action: <ToastAction altText="Home">Home</ToastAction>,
       });
+      // revalidatePath("/")
     } finally {
+      revalidatePath("/")
     }
   };
 

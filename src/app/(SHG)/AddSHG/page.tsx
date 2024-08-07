@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import {  useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 const CreateGroup = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof CreateSHGSchema>>({
@@ -42,6 +43,7 @@ const CreateGroup = () => {
       ("There was a problem with creating a group. Please try again.");
     }
     router.replace("/")
+    revalidatePath("/")
     console.log(values);
   }
   return (
