@@ -23,6 +23,7 @@ export interface Group{
   
 export default async function Home() {
   await dbConnect();
+ 
   
   const SHGList : Group[]= await SHGModel.find({});
   console.log(SHGList)

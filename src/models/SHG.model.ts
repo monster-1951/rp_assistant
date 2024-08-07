@@ -6,7 +6,7 @@ export interface SHG extends Document {
   NoOfMembers: string;
   RP: string;
   Members: string[];
-  SlfName:string;
+  NameOfSLF:string;
 }
 
 const SHGSchema = new Schema<SHG>(
@@ -29,7 +29,7 @@ const SHGSchema = new Schema<SHG>(
         ref: "Member",
       },
     ],
-    SlfName:{
+    NameOfSLF:{
       type:String,
       required: [true, "Name the SLF"],
     }
