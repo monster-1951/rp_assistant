@@ -18,7 +18,11 @@ const AllSHGs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/FetchSHGs");
+        const response = await axios.get("/api/FetchSHGs",{
+            headers:{
+                'Cache-Control':'no-store'
+            }
+        });
         setSHGList(response.data.SHGList);
         console.log(response.data.SHGList, "🍻");
       } catch (error) {
