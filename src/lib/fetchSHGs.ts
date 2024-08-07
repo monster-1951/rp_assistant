@@ -2,6 +2,7 @@ import axios from "axios";
 import dbConnect from "./dbConnect";
 import { Group } from "@/app/api/(SHGs)/FetchSHGs/route";
 import SHGModel from "@/models/SHG.model";
+import { revalidatePath } from "next/cache";
 
 export const fetchData = async () => {
   let data :Group[] = [];
@@ -10,6 +11,7 @@ export const fetchData = async () => {
       data = res.data.SHGList
     }
     );
+    // revalidatePath('/')
     return data
   } catch (error) {
     console.log(error);

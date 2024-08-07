@@ -14,7 +14,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import useSWR from 'swr';
+// import useSWR from 'swr';
 
 const AllSHGs =  () => {
  const [SHGList, setSHGList] = useState<Group[]>([])
@@ -22,15 +22,9 @@ const AllSHGs =  () => {
     const res = await fetchData() || []
     setSHGList(res)
     console.log(SHGList)
-    
   }
 
-  const {data,error} = useSWR('/api/FetchSHGs',fetch,{
-    revalidateOnFocus:false,
-    revalidateOnReconnect:false,
-    refreshInterval:360000,
-  })
-  
+
   useEffect(() => {
     fetch()
   },[])
