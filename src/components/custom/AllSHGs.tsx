@@ -14,44 +14,49 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const AllSHGs = () => {
-   const [SHGList, setSHGList] = useState<Group[]>([])
+  const [SHGList, setSHGList] = useState<Group[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/FetchSHGs");
-        setSHGList(response.data.SHGList)
-        console.log(SHGList,"🍻")
-        
+        setSHGList(response.data.SHGList);
+        console.log(response.data.SHGList, "🍻");
       } catch (error) {
         console.log(Error, "🥲");
       }
     };
-    fetchData()
-  },[]);
+    fetchData();
+  }, []);
 
   return (
     <div>
       {SHGList.map((group) => {
-      return (
-        <>
-          <Card key={group._id}>
-        <><CardHeader>
-          <CardTitle>{group.Name}</CardTitle>
-          <CardDescription>{group.Name} was created by {group.RP} .This group has {(group.Members)?.length} members</CardDescription>
-        </CardHeader></>
-        <CardContent>
-          <p>Members in This group</p>
-        </CardContent>
-        <CardFooter>
-          <p>Date of Creation</p>
-          <Link href={`/EditShg/${group._id}/AddMember`}><Button>Add Members </Button></Link>
-        </CardFooter>
-      </Card>
-        </>
-      )
-    }
-    )}
-    
+        return (
+          <>
+            <Card key={group._id}>
+              <>
+                <CardHeader>
+                  <CardTitle>{group.Name}</CardTitle>
+                  <CardDescription>
+                    {group.Name} was created by {group.RP} .This group has{" "}
+                    {group.Members?.length} members
+                  </CardDescription>
+                </CardHeader>
+              </>
+              <CardContent>
+                <p>Members in This group</p>
+              </CardContent>
+              <CardFooter>
+                <p>Date of Creation</p>
+                <Link href={`/EditShg/${group._id}/AddMember`}>
+                  <Button>Add Members </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </>
+        );
+      })}
+
       <Link href={`/AddSHG`}>
         <Button>Add New SHG</Button>
       </Link>
