@@ -38,10 +38,6 @@ const AllSHGs = () => {
   }, []);
 
  
-  const members = SHGList.map((group) => {
-    return group.Members;
-  });
-  console.log(members[0]);
 
   return (
     <div className="w-full ">
@@ -69,7 +65,7 @@ const AllSHGs = () => {
                     {
                       group.Members?.map((member) => {
                         let name = member.name
-                        return <DropdownMenuItem>{name}</DropdownMenuItem>
+                        return <DropdownMenuItem key={member._id}>{name}</DropdownMenuItem>
                       }
                       )
                     }
