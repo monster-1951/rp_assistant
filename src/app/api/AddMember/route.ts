@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     console.log(
       {
-        groupName,
+        groupName:decodeURIComponent(groupName),
         memberFirstName,
         aadhaarNumber,
         address,
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
 
     const newMember = new MemberModel({
       spouseAlive:spouseAlive,
-      GroupName: groupName,
+      GroupName: decodeURIComponent(groupName),
       FirstName: memberFirstName,
       LastName: memberLastName,
       MobileNumber: memberMobileNumber,
