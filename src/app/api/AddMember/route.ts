@@ -3,6 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import MemberModel from "@/models/Member.model";
 import SHGModel from "@/models/SHG.model";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -93,9 +94,8 @@ export async function POST(request: Request) {
       {$push:{Members:{_id:newMember._id,name:newMember.FirstName}}}
     )
     console.log(group);
-    
-    // redirect('/')
     revalidatePath('/api/FetchSHGs')
+    redirect('/')
     return Response.json(
       {
         success: true,
