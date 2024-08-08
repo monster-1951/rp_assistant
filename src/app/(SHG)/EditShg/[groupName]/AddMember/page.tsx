@@ -28,9 +28,9 @@ import { useMemo, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { revalidatePath } from "next/cache";
-
+import {  useRouter } from "next/navigation";
 const AddMember = ({ params }: { params: { groupName: string } }) => {
+  const router = useRouter()
   const { toast } = useToast();
   const [alive, setalive] = useState(true);
 
@@ -74,7 +74,6 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
         description: "You can go back to home",
         action: <ToastAction altText="Home">Home</ToastAction>,
       });
-      // revalidatePath("/")
     } catch (error) {
       console.error("Error while create adding the member", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -91,9 +90,10 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       });
       // revalidatePath("/")
     } 
-    finally {
-      revalidatePath("/api/FetchSHGs")
-    }
+    router.replace("/")
+    // finally {
+    //   revalidatePath("/api/FetchSHGs")
+    // }
   };
   // git commit -m "added revalidate path to FetchSHGs api end point whenever a new member is added and new group is added"   
   return (

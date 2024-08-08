@@ -95,7 +95,6 @@ export async function POST(request: Request) {
     )
     console.log(group);
     revalidatePath('/api/FetchSHGs')
-    redirect('/')
     return Response.json(
       {
         success: true,
@@ -114,6 +113,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-
- 
 }
