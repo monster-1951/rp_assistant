@@ -95,7 +95,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       revalidatePath("/api/FetchSHGs")
     }
   };
-
+  // git commit -m "added revalidate path to FetchSHGs api end point whenever a new member is added and new group is added"   
   return (
     <div className="w-fit mx-auto border border-black p-5 my-10">
       <div className="p-3 text-center font-bold rounded-xl underline underline-offset-2">

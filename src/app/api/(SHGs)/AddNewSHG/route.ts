@@ -1,7 +1,7 @@
+'use server'
 import dbConnect from "@/lib/dbConnect";
 import SHGModel from "@/models/SHG.model";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function POST(request: Request) {
   //   console.log(request.json());
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         Name,NoOfMembers,RP,NameOfSLF
     });
     await newGroup.save()
-    revalidatePath("/")
+    revalidatePath("/api/FetchSHGs")
     return Response.json(
       {
         success: true,

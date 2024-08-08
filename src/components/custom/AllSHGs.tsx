@@ -21,8 +21,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { findMemberName } from "@/lib/findMemberName";
-
 // import useSWR from 'swr';
 
 const AllSHGs = () => {

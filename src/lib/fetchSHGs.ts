@@ -19,5 +19,7 @@ export const fetchData = async () => {
     return data
   } catch (error) {
     console.log(error);
+  } finally {
+    revalidatePath('/api/FetchSHGs')
   }
 };

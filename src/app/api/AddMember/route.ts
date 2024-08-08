@@ -2,7 +2,7 @@
 import dbConnect from "@/lib/dbConnect";
 import MemberModel from "@/models/Member.model";
 import SHGModel from "@/models/SHG.model";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -95,6 +95,7 @@ export async function POST(request: Request) {
     console.log(group);
     
     // redirect('/')
+    revalidatePath('/api/FetchSHGs')
     return Response.json(
       {
         success: true,
