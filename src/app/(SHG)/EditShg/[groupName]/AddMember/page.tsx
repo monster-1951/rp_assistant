@@ -92,7 +92,7 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
       // revalidatePath("/")
     } 
     finally {
-      // revalidatePath("/api/FetchSHGs")
+      revalidatePath("/api/FetchSHGs")
     }
   };
 
