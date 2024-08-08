@@ -43,7 +43,6 @@ const CreateGroup = () => {
       ("There was a problem with creating a group. Please try again.");
     }
     router.replace("/")
-    revalidatePath("/api/FetchSHGs")
     console.log(values);
   }
   return (
