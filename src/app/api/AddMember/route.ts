@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     console.log(newMember, "👍");
 
     const group =await SHGModel.updateOne(
-      {Name:groupName},
+      {Name:decodeURIComponent(groupName)},
       {$push:{Members:{_id:newMember._id,name:newMember.FirstName}}}
     )
     console.log(group);
