@@ -33,8 +33,7 @@ import { revalidatePath } from "next/cache";
 const AddMember = ({ params }: { params: { groupName: string } }) => {
   const { toast } = useToast();
   const [alive, setalive] = useState(true);
-  let toggle = 1;
-  const toggleval = useMemo(() => toggle++, [toggle]);
+
 
   const aliveRef = useRef<HTMLInputElement>(null);
 
@@ -91,8 +90,9 @@ const AddMember = ({ params }: { params: { groupName: string } }) => {
         action: <ToastAction altText="Home">Home</ToastAction>,
       });
       // revalidatePath("/")
-    } finally {
-      revalidatePath("/")
+    } 
+    finally {
+      // revalidatePath("/api/FetchSHGs")
     }
   };
 
